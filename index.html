@@ -22,7 +22,11 @@
 					
 				ctx.moveTo(x_start, y_start);
 				
+				ctx.lineTo((x_middle/2), ((y_start+y_middle)/2)+Math.floor(Math.random()*101));
+				
 				ctx.lineTo(x_middle, y_middle);
+				
+				ctx.lineTo((x_end/4)*3, ((y_middle+y_end)/2)+Math.floor(Math.random()*101));
 				
 				ctx.lineTo(x_end, y_end);
 								
