@@ -7,43 +7,30 @@
 				var canvas = document.getElementById("myCanvas");
 				var ctx = canvas.getContext("2d");
 				
-				var x_start = 0;
-				var y_start = 500;
-								
-				var x_middle = 250;
-				var y_middle = Math.floor(Math.random()*201);
+				var xsp = 0;
+				var xmp = 250;
+				var xep = 500;
 				
-				var x_end = 500;
-				var y_end = 500;
-				
-				var i = 0;
+				var i=0;
 				
 				//Calculate displacement points
 				while(i<5) {
-					x_point_start = x_start;
-					x_point_end = x_end;
-					x_point_middle = ((x_start+x_end)/2);
+					//Calculate midpoint 1 (M1)
+					m1x_point_start = xsp;
+					m1x_point_end = xmp;
+					m1x_point_middle = ((xsp+xmp)/2);
 					
-					console.log(x_point_middle);
+					console.log(m1x_point_middle);
 					
-					x_end = x_point_middle;
+					//Calculate midpoint 2 (M2)
+					m2x_point_middle = (xep-m1x_point_middle);
+					
+					console.log(m2x_point_middle);
+					
+					xmp = m1x_point_middle;
 					
 					i++;
 				}
-				
-				//ctx.beginPath(); 
-					
-				//ctx.moveTo(x_start, y_start);
-				
-				//ctx.lineTo((x_middle/2), ((y_start+y_middle)/2)+Math.floor(Math.random()*101));
-				
-				//ctx.lineTo(x_middle, y_middle);
-				
-				//ctx.lineTo((x_end/4)*3, ((y_middle+y_end)/2)+Math.floor(Math.random()*101));
-				
-				//ctx.lineTo(x_end, y_end);
-								
-				//ctx.stroke();
 			});
 		</script> 
 	</head>
