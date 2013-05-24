@@ -19,6 +19,9 @@
 				//Change level of smoothness - must equal 1 or greater
 				var smoothness = 1;
 				
+				//Pushes original x-axis midpoint to xpoints
+				xpoints.push(xmp);
+				
 				//Calculate displacement points
 				while(i<(5*smoothness)) {
 					//Calculate midpoint 1 (M1)
@@ -39,12 +42,13 @@
 					
 					//Sort points in ascending numerical order
 					xpoints.sort(function(a,b){return a-b});
-										
+					
 					//Set new end point (start point is set by default with xsp)
 					xmp = m1x_point_middle;
 					
 					i++;
 				}
+				console.dir(xpoints);
 			});
 		</script> 
 	</head>
