@@ -6,4 +6,4 @@ Research source: http://gameprogrammer.com/fractal.html
 
 Better reference: http://www.avanderw.co.za/midpoint-displacement-in-one-dimension
 
-Also useful: http://www.marvinlabs.com/2011/04/14/mid-point-displacement-algorithm
+Also useful link: http://www.marvinlabs.com/2011/04/14/mid-point-displacement-algorithm
