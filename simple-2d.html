@@ -7,6 +7,9 @@
 				var canvas = document.getElementById("myCanvas");
 				var ctx = canvas.getContext("2d");
 				
+				var xpoints = new Array();
+				var ypoints = new Array();
+				
 				var xsp = 0;
 				var xmp = 250;
 				var xep = 500;
@@ -30,6 +33,14 @@
 					
 					console.log(m2x_point_middle);
 					
+					//Push midpoints to xpoints array
+					xpoints.push(m1x_point_middle);
+					xpoints.push(m2x_point_middle);
+					
+					//Sort points in ascending numerical order
+					xpoints.sort(function(a,b){return a-b});
+										
+					//Set new end point (start point is set by default with xsp)
 					xmp = m1x_point_middle;
 					
 					i++;
