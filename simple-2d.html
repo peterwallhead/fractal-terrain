@@ -49,6 +49,14 @@
 					i++;
 				}
 				console.dir(xpoints);
+				
+				//Test line to check that xpoints is working as intended
+				ctx.beginPath();
+				ctx.moveTo(xsp, 250);
+				for (var i = 1; i < xpoints.length; i++) {
+					ctx.lineTo(xpoints[i], 250);
+				}
+				ctx.stroke();
 			});
 		</script> 
 	</head>
