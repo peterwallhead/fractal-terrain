@@ -17,34 +17,17 @@
 				var i=0;
 				
 				//Change level of smoothness - must equal 1 or greater
-				var smoothness = 1;
-				
-				//Pushes original x-axis midpoint to xpoints
-				xpoints.push(xmp);
+				var smoothness = 2;
 				
 				//Calculate displacement points
-				while(i<(5*smoothness)) {
-					//Calculate midpoint 1 (M1)
-					m1x_point_start = xsp;
-					m1x_point_end = xmp;
-					m1x_point_middle = ((xsp+xmp)/2);
+				x_point_space = xep/smoothness;
+				
+				while(i<smoothness+1) {
 					
-					console.log(m1x_point_middle);
-					
-					//Calculate midpoint 2 (M2)
-					m2x_point_middle = (xep-m1x_point_middle);
-					
-					console.log(m2x_point_middle);
+					x_point = x_point_space * i; 
 					
 					//Push midpoints to xpoints array
-					xpoints.push(m1x_point_middle);
-					xpoints.push(m2x_point_middle);
-					
-					//Sort points in ascending numerical order
-					xpoints.sort(function(a,b){return a-b});
-					
-					//Set new end point (start point is set by default with xsp)
-					xmp = m1x_point_middle;
+					xpoints.push(x_point);
 					
 					i++;
 				}
@@ -52,11 +35,12 @@
 				
 				//Test line to check that xpoints is working as intended
 				ctx.beginPath();
-				ctx.moveTo(xsp, 250);
+				ctx.moveTo(xsp, Math.floor(Math.random()*201));
 				for (var i = 1; i < xpoints.length; i++) {
-					ctx.lineTo(xpoints[i], 250);
+					ctx.lineTo(xpoints[i], Math.floor(Math.random()*201));
 				}
 				ctx.stroke();
+				
 			});
 		</script> 
 	</head>
