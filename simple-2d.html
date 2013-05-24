@@ -13,8 +13,11 @@
 				
 				var i=0;
 				
+				//Change level of smoothness - must equal 1 or greater
+				var smoothness = 1;
+				
 				//Calculate displacement points
-				while(i<5) {
+				while(i<(5*smoothness)) {
 					//Calculate midpoint 1 (M1)
 					m1x_point_start = xsp;
 					m1x_point_end = xmp;
