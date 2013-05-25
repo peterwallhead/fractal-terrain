@@ -1,0 +1,81 @@
+<!DOCTYPE html>  
+<html>  
+	<head> 
+		<title>Simple 2D Landscape created using random fractals</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
+		<script>
+			$(document).ready(function() {	
+				var canvas = document.getElementById("myCanvas");
+				var ctx = canvas.getContext("2d");
+				
+				//Number of line segments, max. 100, default 60
+				smoothness = 60;
+				
+				//Can be calculated with hook to #canvas width 
+				canvas_width = 1000;
+				
+				//Can be calculated with hook to #canvas height
+				canvas_height = 200;
+				
+				//Range 0-1, default 0.5  
+				sharpness = 0.5;
+				
+				//Max. elevation
+				elevation = canvas_height/3;
+				
+				//Centers stroke vertically within the canvas
+				base_altitude = canvas_height/2;
+				
+				//Creates an array of all the points required
+				function Terrain(segmentCount,elevation) {
+					points = [];
+					for (i=0; i<=segmentCount; ++i) {
+						points[i] = 0;
+					}
+					start_mid_point(elevation);
+					draw_points();
+				};
+				
+				//Creates first midpoint and starts the recursive function to create all the other midpoints
+				function start_mid_point(elevation) {
+					mid_point(0, smoothness, elevation);
+				}
+				
+				//Creates each midpoint and saves its y-axis in points[]
+				function mid_point(start, end, elevation) {    
+					var middle = Math.round((start + end) * 0.5);        
+					if ((end-start<=1) || middle==start || middle==end) {
+						return;
+					}
+    
+					var newAltitude = 0.5 * (points[end] + points[start]) + elevation*(1 - 2*Math.random());
+					points[middle] = newAltitude;
+					
+					mid_point(start, middle, elevation*sharpness); 
+					mid_point(middle, end, elevation*sharpness); 
+				};
+				
+				//Draws points[] on canvas
+				function draw_points() {
+					ctx.beginPath();
+					ctx.moveTo(0, base_altitude);
+					for (var i = 1; i < points.length; i++) {
+						ctx.lineTo(i*(Math.round(canvas_width/smoothness-1)), points[i]+base_altitude);
+					}
+					ctx.stroke();
+				}
+				
+				//Kicks off the whole thing when DOM is ready
+				Terrain(smoothness,elevation);
+				
+				//Optional output of points array to console
+				//console.dir(points); 
+			});
+		</script> 
+	</head>
+	<body>
+		<canvas width="1000" height="200" id="myCanvas">
+			<!-- Insert fallback content here -->
+		</canvas>
+	</body>
+</html>
