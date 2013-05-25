@@ -6,9 +6,9 @@ Experimenting with Canvas with the end goal to produce 3D landscapes.
 
 ### Example outputs
 
-*From simple-2d.html*
+#### From [simple-2d.html] (https://github.com/peterwallhead/fractal-terrain/blob/master/examples/simple-2d.html)
 
-<img width="100%" src="https://raw.github.com/peterwallhead/fractal-terrain/master/images/simple-2d.png" />
+<img width="100%" style="border:1px solid #ccc;" src="https://raw.github.com/peterwallhead/fractal-terrain/master/images/simple-2d.png" />
 
 ### Links
 
