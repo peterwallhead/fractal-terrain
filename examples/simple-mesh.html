@@ -2,7 +2,9 @@
 <html>  
 	<head> 
 		<title>Simple 3D mesh created using random fractals</title>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script>
 			$(document).ready(function() {	
 				var canvas = document.getElementById("myCanvas");
@@ -117,15 +119,36 @@
 					
 				}
 				
-				//Kicks off the whole thing when DOM is ready
-				
+				//Refresh mesh without reloading DOM				
 				$('#refresh_terrain').click(function(e) { 
 					Terrain(smoothness,elevation); 
 				});
+				
+				
+
+				
+				//Kicks off the whole thing when DOM is ready
 				Terrain(smoothness,elevation);
+				
 				//Optional output of points array to console
 				//console.dir(points); 
+			
+			$(function() {
+				$('#slider').slider({
+					value:0.5,
+					min: 0,
+					max: 1,
+					step: 0.10,
+					slide: function( event, ui ) {
+						//Range 0-1, default 0.5  
+						sharpness = ui.value;
+					}
+				});
 			});
+			
+			});
+			
+			
 		</script> 
 	</head>
 	<body>
@@ -133,7 +156,9 @@
 			<canvas width="1000" height="500" id="myCanvas">
 				<!-- Insert fallback content here -->
 			</canvas>
-			<input type="submit" value="New Terrain" id="refresh_terrain" style="float: right;" class="button">
+			<div id="tools" style="float:right;width:1000px;text-align:right;">
+				<em>Sharpness slider</em> <div id="slider" style="width:200px;display:inline-block;margin-left:10px;margin-right:10px;margin-top:10px;"></div> <input type="submit" value="New Terrain" id="refresh_terrain" class="button">
+			</div>
 		</div>
 	</body>
 </html>
