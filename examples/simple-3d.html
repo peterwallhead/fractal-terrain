@@ -1,0 +1,111 @@
+<!DOCTYPE html>  
+<html>  
+	<head> 
+		<title>Simple 3D Landscape perspective simulation created using random fractals</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
+		<script>
+			$(document).ready(function() {	
+				var canvas = document.getElementById("myCanvas");
+				var ctx = canvas.getContext("2d");
+				
+				//Number of line segments, must equal 100
+				smoothness = 100;
+				
+				//Can be calculated with hook to #canvas width 
+				canvas_width = 1000;
+				
+				//Can be calculated with hook to #canvas height
+				canvas_height = 500;
+				
+				//Range 0-1, default 0.5  
+				sharpness = 0.5;
+				
+				//Max. elevation
+				elevation = canvas_height/4;
+				
+				//Centers stroke vertically within the canvas
+				base_altitude = canvas_height/4;
+				
+				//Main function to create terrain
+				function Terrain(segmentCount,elevation) {
+					//Creates an array of all the points required
+					points = [];
+					for (i=0; i<=segmentCount; ++i) {
+						points[i] = 0;
+					}
+					start_mid_point(elevation);
+					draw_points();
+				};
+				
+				//Creates first midpoint and starts the recursive function to create all the other midpoints
+				function start_mid_point(elevation) {
+					mid_point(0, smoothness, elevation);
+				}
+				
+				//Creates each midpoint and saves its y-axis in points[]
+				function mid_point(start, end, elevation) {    
+					var middle = Math.round((start + end) * 0.5);        
+					if ((end-start<=1) || middle==start || middle==end) {
+						return;
+					}
+    
+					var newAltitude = 0.5 * (points[end] + points[start]) + elevation*(1 - 2*Math.random());
+					points[middle] = newAltitude;
+					
+					mid_point(start, middle, elevation*sharpness); 
+					mid_point(middle, end, elevation*sharpness); 
+				};
+				
+				
+				
+				
+				//Draws points[] on canvas (most of this values are not dynamic to ease coding)
+				function draw_points() {
+					var x = 50;
+					var y = 50;
+					
+					ctx.beginPath();
+					ctx.moveTo(x, y);
+					var shifterx = 0;
+					var shiftery = 0;
+					var j = 1;
+					for (var i = 1; i < points.length; i++) {
+						if(i % 10 == 0) {
+							x=x+50;
+							y=50;
+							shifterx = 0;
+							shiftery = 0;
+							ctx.moveTo(x,y);
+							px = x+(shifterx);
+							py = y;
+						} else {
+							x=x;
+							y=y+50;
+							shifterx=shifterx+30;
+							shiftery=shiftery+30;
+							px = x+(shifterx);
+							py = (y-shiftery)+(points[i]/3);
+						}
+						ctx.lineTo(px, py);
+						
+						//console.log(px+', '+py);
+					}
+					ctx.stroke();
+				}
+				
+				//Kicks off the whole thing when DOM is ready
+				Terrain(smoothness,elevation);
+								
+				//Optional output of points array to console
+				//console.dir(points); 
+			});
+		</script> 
+	</head>
+	<body>
+		<div id="canvas_wrap" style="border:1px solid #ccc;width:1000px;margin:0 auto;">
+			<canvas width="1000" height="500" id="myCanvas">
+				<!-- Insert fallback content here -->
+			</canvas>
+		</div>
+	</body>
+</html>
