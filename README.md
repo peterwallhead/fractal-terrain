@@ -14,6 +14,10 @@ Experimenting with Canvas with the end goal to produce 3D landscapes.
 
 <img width="100%" src="https://raw.github.com/peterwallhead/fractal-terrain/master/images/simple-3d.png" />
 
+#### From [examples/simple-mesh.html] (https://github.com/peterwallhead/fractal-terrain/blob/master/examples/simple-mesh.html)
+
+<img width="100%" src="https://raw.github.com/peterwallhead/fractal-terrain/master/images/simple-mesh.png" />
+
 ### Links
 
 Research source: http://gameprogrammer.com/fractal.html
