@@ -28,6 +28,7 @@
 				
 				//Main function to create terrain
 				function Terrain(segmentCount,elevation) {
+					ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
 					//Creates an array of all the points required
 					points = [];
 					for (i=0; i<=segmentCount; ++i) {
@@ -117,8 +118,11 @@
 				}
 				
 				//Kicks off the whole thing when DOM is ready
+				
+				$('#refresh_terrain').click(function(e) { 
+					Terrain(smoothness,elevation); 
+				});
 				Terrain(smoothness,elevation);
-								
 				//Optional output of points array to console
 				//console.dir(points); 
 			});
@@ -129,6 +133,7 @@
 			<canvas width="1000" height="500" id="myCanvas">
 				<!-- Insert fallback content here -->
 			</canvas>
+			<input type="submit" value="New Terrain" id="refresh_terrain" style="float: right;" class="button">
 		</div>
 	</body>
 </html>
