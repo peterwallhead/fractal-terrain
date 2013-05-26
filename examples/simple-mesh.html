@@ -72,9 +72,6 @@
 					//Mesh wireframe colour
 					ctx.strokeStyle = "black";
 					
-					//Save for future use
-					//ctx.fillStyle = "green";
-					
 					//Creating tiles in ribbons using generated x,y positions and then adding points[i] to y-axis to simulate height  
 					for (var i = 1; i < (points.length-12); i++) {
 						ctx.beginPath();
@@ -113,9 +110,6 @@
 						
 						ctx.lineTo(px, py);
 						ctx.stroke();
-						
-						//Save for future use
-						//ctx.fill();
 
 						//Resets x,y to next start point when ribbon is 10 tiles in length
 						if(i % 10 == 0) {
@@ -126,7 +120,6 @@
 							x = x + (tileSizeW/2);
 						}
 					}
-					
 				}
 				
 				//Refresh mesh without reloading DOM				
