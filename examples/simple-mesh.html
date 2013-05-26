@@ -10,8 +10,8 @@
 				var canvas = document.getElementById("myCanvas");
 				var ctx = canvas.getContext("2d");
 				
-				//Number of line segments, must equal 100
-				smoothness = 101;
+				//Number of line segments, must equal 101
+				smoothness = 112;
 				
 				//Can be calculated with hook to #canvas width 
 				canvas_width = 1000;
@@ -76,7 +76,7 @@
 					//ctx.fillStyle = "green";
 					
 					//Creating tiles in ribbons using generated x,y positions and then adding points[i] to y-axis to simulate height  
-					for (var i = 1; i < (points.length-11); i++) {						
+					for (var i = 1; i < (points.length-12); i++) {
 						ctx.beginPath();
 						ctx.moveTo(x, y + points[i]);
 						
@@ -105,15 +105,25 @@
 						ctx.lineTo(px, py);
 						ctx.stroke();
 						
+						//Tile side 4 - from points[i+9] to points[i]
+						x=x-(tileSizeW/2);
+						y=y;
+						px=x;
+						py=y+points[i];
+						
+						ctx.lineTo(px, py);
+						ctx.stroke();
+						
 						//Save for future use
 						//ctx.fill();
 
 						//Resets x,y to next start point when ribbon is 10 tiles in length
 						if(i % 10 == 0) {
-							x = x - ((tileSizeW/2)*9);
+							x = x - ((tileSizeW/2)*8);
 							y = y - ((tileSizeH/2)*9);
 						} else {
 							y = y + (tileSizeH/2);
+							x = x + (tileSizeW/2);
 						}
 					}
 					
@@ -133,7 +143,6 @@
 				//Optional output of points array to console
 				//console.dir(points); 
 			
-			$(function() {
 				$('#slider').slider({
 					value:0.5,
 					min: 0,
@@ -143,12 +152,8 @@
 						//Range 0-1, default 0.5  
 						sharpness = ui.value;
 					}
-				});
+				});			
 			});
-			
-			});
-			
-			
 		</script> 
 	</head>
 	<body>
