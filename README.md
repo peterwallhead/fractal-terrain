@@ -2,7 +2,7 @@
 
 ### Description
 
-Experimenting with Canvas with the end goal to produce 3D landscapes.
+Experimenting with Canvas with the end goal to produce 3D landscapes for game development.
 
 ### Example outputs
 
@@ -17,6 +17,10 @@ Experimenting with Canvas with the end goal to produce 3D landscapes.
 #### From [examples/simple-mesh.html] (https://github.com/peterwallhead/fractal-terrain/blob/master/examples/simple-mesh.html)
 
 <img width="100%" src="https://raw.github.com/peterwallhead/fractal-terrain/master/images/simple-mesh.png" />
+
+#### From [examples/advanced-mesh.html] (https://github.com/peterwallhead/fractal-terrain/blob/master/examples/advanced-mesh.html)
+
+<img width="100%" src="https://raw.github.com/peterwallhead/fractal-terrain/master/images/advanced-mesh.png" />
 
 ### Links
 
