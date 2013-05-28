@@ -62,10 +62,10 @@
     
 					var newAltitude = sharpness * (points[end] + points[start]) + elevation*(1 - 2*Math.random());
 					var seed = Math.random()*10;
-					if(seed>9) {
+					if(seed>4) {
 						points[middle] = newAltitude;
 					} else {
-						points[middle] = newAltitude-(Math.random()*(10*sharpness));
+						points[middle] = newAltitude+seed;
 					}
 					mid_point(start, middle, elevation*sharpness); 
 					mid_point(middle, end, elevation*sharpness); 
@@ -123,11 +123,13 @@
 						ctx.stroke();
 						
 						//console.log(py);
-						//Add simulated water with blue fill where altitude<1
-						if((points[i])<-1 || ((points[i]+1)<-1) || (points[i+segments+1]<-1) || (points[i+segments]<-1)) {
-							ctx.fillStyle = "green";
-						} else {
+						//Add simulated water with blue fill where altitude is low
+						//Water level
+						var water_level = 25;
+						if((points[i])>water_level && ((points[i]+1)>water_level) && (points[i+segments+1]>water_level) && (points[i+segments]>water_level)) {
 							ctx.fillStyle = "blue";
+						} else {
+							ctx.fillStyle = "green";
 						}
 						ctx.fill();	
 							
