@@ -1,0 +1,168 @@
+<!DOCTYPE html>  
+<html>  
+	<head> 
+		<title>Coloured mesh created using random fractals (with seeding)</title>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script>
+			$(document).ready(function() {	
+				var canvas = document.getElementById("myCanvas");
+				var ctx = canvas.getContext("2d");
+				
+				$('#slider-hills').slider({
+					value:0.5,
+					min: 0,
+					max: 1,
+					step: 0.10,
+					slide: function( event1, ui_hills ) {
+						//Range 0-1, default 0.5  
+						sharpness = ui_hills.value;
+					}
+				});
+				
+				//Number of line segments per ribbon, max 100
+				segments = 50;
+				
+				//Total segments
+				smoothness = (segments*segments)+segments+1;
+				
+				//Range 0-1, default 0.5  
+				sharpness = 0.5;
+				
+				//Max. elevation, range 50-150
+				elevation = 50;
+				
+				//Terrain width
+				terrain_square = 800;
+				
+				//Main function to create terrain
+				function Terrain(segmentCount,elevation) {
+					ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+					//Creates an array of all the points required
+					points = [];
+					for (i=0; i<=segmentCount; ++i) {
+						points[i] = 0;
+					}
+					start_mid_point(elevation);
+					draw_points();
+				};
+				
+				//Creates first midpoint and starts the recursive function to create all the other midpoints
+				function start_mid_point(elevation) {
+					mid_point(0, smoothness, elevation);
+				}
+				
+				//Creates each midpoint and saves its y-axis in points[]
+				function mid_point(start, end, elevation) {    
+					var middle = Math.round((start + end) * 0.5);        
+					if ((end-start<=1) || middle==start || middle==end) {
+						return;
+					}
+    
+					var newAltitude = 0.5 * (points[end] + points[start]) + elevation*(1 - 2*Math.random());
+					var seed = Math.random()*10;
+					if(seed>9) {
+						points[middle] = newAltitude;
+					} else {
+						points[middle] = newAltitude-(Math.random()*(10*sharpness));
+					}
+					mid_point(start, middle, elevation*sharpness); 
+					mid_point(middle, end, elevation*sharpness); 
+				};
+				
+				//Draws points[] on canvas (most of this values are not dynamic to ease coding)
+				function draw_points() {
+					//Start x,y
+					var x = 500;
+					var y = 100;
+					
+					//Tile size (each of these are halved the create the simulated perspective view
+					var tileSizeW = terrain_square/segments;
+					var tileSizeH = (tileSizeW/1.5);
+					
+					//Mesh wireframe colour
+					ctx.strokeStyle = "black";
+					
+					//Creating tiles in ribbons using generated x,y positions and then adding points[i] to y-axis to simulate height  
+					for (var i = 1; i < (points.length-segments-1); i++) {
+						ctx.beginPath();
+						ctx.moveTo(x, y + points[i]);
+						
+						//Tile side 1 - from points[i] to points[i+1]
+						x=x+(tileSizeW/2);
+						y=y+(tileSizeH/2);
+						px=x;
+						py=y+points[i+1];
+						
+						ctx.lineTo(px, py);
+						
+						//Tile side 2 - from points[i+1] to points[i+10]
+						x=x-(tileSizeW/2);
+						y=y;
+						px=x;
+						py=y+points[i+segments+1];
+						
+						ctx.lineTo(px, py);
+						
+						//Tile side 3 - from points[i+10] to points[i+9]
+						x=x-(tileSizeW/2);
+						y=y-(tileSizeH/2);
+						px=x;
+						py=y+points[i+segments];
+						
+						ctx.lineTo(px, py);
+						
+						//Tile side 4 - from points[i+9] to points[i]
+						x=x+(tileSizeW/2);
+						y=y;
+						px=x;
+						py=y+points[i];
+						
+						ctx.lineTo(px, py);
+						ctx.stroke();
+						
+						//console.log(py);
+						//Add simulated water with blue fill where altitude<1
+						if((points[i])<-1 || ((points[i]+1)<-1) || (points[i+segments+1]<-1) || (points[i+segments]<-1)) {
+							ctx.fillStyle = "green";
+						} else {
+							ctx.fillStyle = "blue";
+						}
+						ctx.fill();	
+							
+						//Resets x,y to next start point when ribbon is [segments] tiles in length
+						if(i % segments == 0) {
+							x = x - ((tileSizeW/2)*(segments));
+							y = y - ((tileSizeH/2)*(segments-1));
+						} else {
+							y = y + (tileSizeH/2);
+							x = x + (tileSizeW/2);
+						}
+					}
+				}
+
+				//Kicks off the whole thing when DOM is ready
+				Terrain(smoothness,elevation);
+				
+				//Refresh mesh without reloading DOM				
+				$('#refresh_terrain').click(function(e) { 
+					Terrain(smoothness,elevation); 
+				});
+				
+				//Optional output of points array to console
+				console.dir(points); 
+			});
+		</script> 
+	</head>
+	<body>
+		<div id="canvas_wrap" style="border:1px solid #ccc;width:1000px;margin:0 auto;">
+			<canvas width="1000" height="500" id="myCanvas">
+				<!-- Insert fallback content here -->
+			</canvas>
+			<div id="tools" style="float:right;width:1000px;text-align:right;">
+				<em>Hillyness</em> <div id="slider-hills" style="width:200px;display:inline-block;margin-left:10px;margin-right:10px;margin-top:10px;"></div> <input type="submit" value="New Terrain" id="refresh_terrain" class="button">
+			</div>
+		</div>
+	</body>
+</html>

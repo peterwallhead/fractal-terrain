@@ -6,6 +6,10 @@ Experimenting with Canvas with the end goal to produce 3D landscapes for game de
 
 ### Example outputs
 
+#### From [examples/coloured-mesh.html] (https://github.com/peterwallhead/fractal-terrain/blob/master/examples/coloured-mesh.html)
+
+<img width="100%" src="https://raw.github.com/peterwallhead/fractal-terrain/master/images/coloured-mesh.png" />
+
 #### From [examples/advanced-mesh.html] (https://github.com/peterwallhead/fractal-terrain/blob/master/examples/advanced-mesh.html)
 
 <img width="100%" src="https://raw.github.com/peterwallhead/fractal-terrain/master/images/advanced-mesh.png" />
