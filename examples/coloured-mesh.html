@@ -60,7 +60,7 @@
 						return;
 					}
     
-					var newAltitude = 0.5 * (points[end] + points[start]) + elevation*(1 - 2*Math.random());
+					var newAltitude = sharpness * (points[end] + points[start]) + elevation*(1 - 2*Math.random());
 					var seed = Math.random()*10;
 					if(seed>9) {
 						points[middle] = newAltitude;
