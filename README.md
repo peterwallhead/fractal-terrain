@@ -33,3 +33,5 @@ Research source: http://gameprogrammer.com/fractal.html
 Better reference: http://www.avanderw.co.za/midpoint-displacement-in-one-dimension
 
 Also a very useful link: http://www.marvinlabs.com/2011/04/14/mid-point-displacement-algorithm
+
+Another terrain generator that uses Javascript: http://www.somethinghitme.com/projects/canvasterrain
